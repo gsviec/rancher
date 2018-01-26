@@ -1,0 +1,28 @@
+- set_fact: role_name=rancher
+
+
+- name: Set up firewall
+  shell: systemctl enable firewalld
+
+- name: Start the firewall
+  shell: systemctl start firewalld
+
+- name: Allow public to port racnher in firewall
+  shell: firewall-cmd --zone=public --add-port={{ item }} --permanent
+  with_items:
+    - 22/tcp
+    - 2377/tcp
+    - 2377/udp
+    - 2378/udp
+    - 2378/tcp
+    - 4500/udp
+    - 500/udp
+    - 7946/udp
+    - 4789/udp
+    - 7946/tcp
+    - 8000-10000/tcp
+
+
+- name: Reload firewall
+  shell: firewall-cmd --reload
+

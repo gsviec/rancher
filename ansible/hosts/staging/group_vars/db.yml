@@ -1,0 +1,8 @@
+# These are the Mariadb database settings
+mariadb_port: 3306
+
+mariadb_password_root: anpE2_?g(r.?@#
+mariadb_database: tv_molo
+mariadb_file: haru_circle.sql
+mariadb_admin_user: gsviec
+mariadb_admin_password: phanbook

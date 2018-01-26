@@ -1,0 +1,30 @@
+- name: Setup directory symlink
+  become: true
+  file:
+    src: '{{ release_upload_path }}'
+    dest:  '{{ ansistrano_release_path.stdout}}/wp-content/uploads'
+    state: link
+
+- name: Setup directory cache symlink
+  become: true
+  file:
+    src: '{{ release_cache_path }}'
+    dest:  '{{ ansistrano_release_path.stdout}}/wp-content/cache'
+    state: link
+
+- name: Change file ownership, group and mode w3tc-config
+  become: true
+  file:
+    path:  '{{ ansistrano_release_path.stdout}}/wp-content/w3tc-config'
+    mode: 0777
+
+- name: Change file ownership, group and mode wp-content
+  become: true
+  file:
+    path:  '{{ ansistrano_release_path.stdout}}/wp-content/'
+    mode: 0777
+- name: Change file ownership, group and mode nginx.conf
+  become: true
+  file:
+    path:  '{{ ansistrano_release_path.stdout}}/nginx.conf'
+    mode: 0777

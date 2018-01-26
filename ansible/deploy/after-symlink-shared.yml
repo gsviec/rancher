@@ -1,0 +1,21 @@
+- name: Setup directory permissions for upload
+  become: true
+  file:
+    path: '{{ release_upload_path }}'
+    state: directory
+    mode: 0777
+    recurse: true
+- name: Setup directory permissions for cache
+  become: true
+  file:
+    path: '{{ release_cache_path }}'
+    state: directory
+    mode: 0777
+    recurse: true
+- name: Setup directory permissions for w3c
+  become: true
+  file:
+    path: '{{ release_w3tc_config_path }}'
+    state: directory
+    mode: 0777
+    recurse: true

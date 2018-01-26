@@ -1,0 +1,28 @@
+- name: Remove libmariadb
+  yum: pkg={{ item }} state=absent
+  with_items:
+    - mysql-libs
+    - mysql*
+    - Percona-Server-devel-56*
+    - Percona-Server-devel-55-*
+    - Percona-Server-shared-56-*
+    - Percona-Server-shared-55-*
+- name: Import repo DB library
+  shell: rpm -Uvh http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm
+  ignore_errors: yes
+
+- name: Percona packages are installed
+  yum: pkg={{ item }}
+  with_items:
+    - Percona-Server-server-57
+    - percona-xtrabackup-24
+    # - 
+
+- name: Install util python MySQL-python
+  shell: yum install MySQL-python -y
+
+- name: Configure mariadb for easy access as root user
+  template: src=templates/config.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0644
+
+- name: Start the MariaDB service
+  service: name=mysql state=started enabled=true
